@@ -4,8 +4,8 @@ import { MovieCard } from './MovieCard';
 
 interface GenreResponseProps {
   id: number;
-  name: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
-  title: string;
+  name?: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
+  title?: string;
 }
 
 interface MovieProps {
