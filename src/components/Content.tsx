@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import  { api } from '../services/api';
 import { MovieCard } from './MovieCard';
 
+import '../styles/content.scss';
+
 interface GenreResponseProps {
   id: number;
   name?: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
@@ -18,27 +20,28 @@ interface MovieProps {
   }>;
   Runtime: string;
 }
-export function Content(props:GenreResponseProps) {
+export function Content({state}) {
   // Complete aqui
+  console.log(state.selectedGenreId)
 
   const [movies, setMovies] = useState<MovieProps[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<GenreResponseProps>({} as GenreResponseProps);
 
   useEffect(() => {
-    api.get<MovieProps[]>(`movies/?Genre_id=${props.id}`).then(response => {
+    api.get<MovieProps[]>(`movies/?Genre_id=${state.selectedGenreId}`).then(response => {
       setMovies(response.data);
     });
 
-    api.get<GenreResponseProps>(`genres/${props.id}`).then(response => {
+    api.get<GenreResponseProps>(`genres/${state.selectedGenreId}`).then(response => {
       setSelectedGenre(response.data);
     })
-  }, [props.id]);
+  }, [state.selectedGenreId]);
 
 
   return (
     <div className="container">
           <header>
-            <span className="category">Categoria:<span> { props.title}</span></span>
+            <span className="category">Categoria:<span> { selectedGenre.title}</span></span>
           </header>
 
           <main>
